@@ -21,7 +21,7 @@ const Canvas = ({
   renderDescription: Function;
   dependensienceState: string;
 }) => {
-  if (typeof window !== undefined) return;
+  if (typeof window !== "object") return;
 
   const [isDragged, setIsDragged] = useState(false);
   const [scale, setScale] = useState(1);
