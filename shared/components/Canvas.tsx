@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useEffect, useState, useLayoutEffect, useMemo, useReducer } from "react";
+import { useState, useLayoutEffect, useMemo, useReducer } from "react";
 import ZoomPanel from "./ZoomPanel";
 import React from "react";
-import { randColor } from "@/utils/cn";
 
 const Canvas = ({
   data,
@@ -22,6 +21,8 @@ const Canvas = ({
   renderDescription: Function;
   dependensienceState: string;
 }) => {
+  if (typeof window !== undefined) return;
+
   const [isDragged, setIsDragged] = useState(false);
   const [scale, setScale] = useState(1);
   const [scaleOffset, setScaleOffset] = useState({ x: 0, y: 0 });
@@ -41,9 +42,6 @@ const Canvas = ({
   // const [isPointHovered, setIsPointHovered] = useState(false);
 
   window.onresize = forceUpdate;
-
-  // const centerY = window.innerHeight / 2;
-  // const centerX = window.innerWidth / 2;
 
   const points = data;
   const depType = dependensienceState;
@@ -111,7 +109,7 @@ const Canvas = ({
       points.forEach((point) => {
         context.fillStyle = "#fff";
         context.beginPath();
-        context.arc(point.x, point.y, point.size , 0, Math.PI * 2);
+        context.arc(point.x, point.y, point.size, 0, Math.PI * 2);
         context.fill();
       });
 
